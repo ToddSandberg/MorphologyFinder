@@ -363,4 +363,18 @@ public class MorphologyFinderTest {
 		String actual = s.breakApart();
 		assertEquals(expected,actual);
 	}
+	@Test
+	public void comfortableTest() {
+		String expected = "Word:comfort Suffix 1: able";
+		MorphologyFinder s = new MorphologyFinder("comfortable");
+		String actual = s.breakApart();
+		assertEquals(expected,actual);
+	}
+	@Test
+	public void preschoolTest() {
+		String expected = "Word:school Prefix 1: pre";
+		MorphologyFinder s = new MorphologyFinder("preschool");
+		String actual = s.breakApart();
+		assertEquals(expected,actual);
+	}
 }

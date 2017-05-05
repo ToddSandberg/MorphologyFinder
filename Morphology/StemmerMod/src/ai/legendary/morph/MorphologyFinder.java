@@ -483,9 +483,9 @@ public class MorphologyFinder {
 			removeF(2);
 		}
 		checkPref("contra");
-		checkPref("coutner");
+		checkPref("counter");
 		
-		if(begins("co") && letters.size()>4){
+		if(begins("co") && letters.size()>4 && !begins("com")){
 			prefs.add("co");
 			removeF(2);
 		}

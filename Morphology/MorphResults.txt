@@ -25,7 +25,7 @@ Word:organize Suffix 1: ation
 Word:weak Suffix 1: dom Suffix 2: ling
 Word:terror Suffix 1: ism
 Word:duck Suffix 1: ish Suffix 2: ling
-Word:mfort Suffix 1: able Prefix 1: co
+Word:comfort Suffix 1: able
 Word:paint Suffix 1: er
 Word:relate Suffix 1: ship Suffix 2: ation
 Word:judge Suffix 1: ment
@@ -50,3 +50,4 @@ Word:middle
 Word:culture Suffix 1: al Prefix 1: multi
 Word:space Prefix 1: cyber
 Word:clutter Suffix 1: er Prefix 1: de
+Word:school Prefix 1: pre
