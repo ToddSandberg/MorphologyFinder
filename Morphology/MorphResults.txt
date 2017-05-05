@@ -1,0 +1,52 @@
+Word:accept
+Word:accept Suffix 1: es Suffix 2: ity Suffix 3: able
+Word:want Suffix 1: ed
+Word:tendin Suffix 1: itis
+Word:wonder Suffix 1: ful
+Word:boy Suffix 1: s
+Word:play Suffix 1: ing
+Word:friend Suffix 1: ly
+Word:teach Suffix 1: er
+Word:act Suffix 1: ion
+Word:final
+Word:accept Suffix 1: es Suffix 2: ness Suffix 3: ing
+Word:enjoy Suffix 1: ment
+Word:serious
+Word:live Suffix 1: en
+Word:big Suffix 1: er
+Word:big Suffix 1: est
+Word:attent Suffix 1: ive
+Word:accept Suffix 1: s Suffix 2: ilation
+Word:agree Suffix 1: d
+Word:meet Suffix 1: s Suffix 2: ing
+Word:pony Suffix 1: es
+Word:feed
+Word:organize Suffix 1: ation
+Word:weak Suffix 1: dom Suffix 2: ling
+Word:terror Suffix 1: ism
+Word:duck Suffix 1: ish Suffix 2: ling
+Word:mfort Suffix 1: able Prefix 1: co
+Word:paint Suffix 1: er
+Word:relate Suffix 1: ship Suffix 2: ation
+Word:judge Suffix 1: ment
+Word:pious
+Word:pious Suffix 1: like
+Word:view Suffix 1: ee Prefix 1: inter
+Word:retire Suffix 1: ee
+Word:beg Suffix 1: ar
+Word:lie Suffix 1: ar
+Word:wait Suffix 1: ess Suffix 2: er
+Word:prince Suffix 1: ess
+Word:disk Suffix 1: ette
+Word:pipe Suffix 1: ette
+Word:fish
+Word:fancy
+Word:festive Suffix 1: ivity
+Word:dimension Suffix 1: al Prefix 1: trans
+Word:morph Suffix 1: ic Prefix 1: allo
+Word:nate Suffix 1: ing Prefix 1: alter
+Word:mate Suffix 1: ic Prefix 1: auto
+Word:middle
+Word:culture Suffix 1: al Prefix 1: multi
+Word:space Prefix 1: cyber
+Word:clutter Suffix 1: er Prefix 1: de
