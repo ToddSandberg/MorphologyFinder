@@ -377,4 +377,11 @@ public class MorphologyFinderTest {
 		String actual = s.breakApart();
 		assertEquals(expected,actual);
 	}
+	@Test
+	public void rustierTest() {
+		String expected = "Word:rusty Suffix 1: er";
+		MorphologyFinder s = new MorphologyFinder("rustier");
+		String actual = s.breakApart();
+		assertEquals(expected,actual);
+	}
 }

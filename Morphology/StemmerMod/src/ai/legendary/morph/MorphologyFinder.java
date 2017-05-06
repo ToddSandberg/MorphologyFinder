@@ -184,8 +184,7 @@ public class MorphologyFinder {
 	 * @param j
 	 * @return
 	 */
-	private final boolean doubleletter() {
-		int j = letters.size() - 1;
+	private final boolean doubleletter(int j) {
 		if (j < 1)
 			return false;
 		return letters.get(j) == letters.get(j - 1);
@@ -196,10 +195,12 @@ public class MorphologyFinder {
 	 */
 
 	private final boolean cvc() {
-		return cons(letters.size() - 1) && !cons(letters.size() - 2)
+		if(letters.size()>2)
+			return cons(letters.size() - 1) && !cons(letters.size() - 2)
 				&& cons(letters.size() - 3);
+		else return false;
 	}
-
+	
 	/**
 	 * removes x elements from the arraylist
 	 * 
@@ -336,7 +337,7 @@ public class MorphologyFinder {
 			if (cvc()) {
 				letters.add('e');
 			}
-			if (doubleletter()) {
+			if (doubleletter(letters.size()-1)) {
 				removeX(1);
 			}
 		}
@@ -401,15 +402,43 @@ public class MorphologyFinder {
 		if (ends("er")) {
 			suffs.add("er");
 			removeX(2);
-			if (ends("" + letters.get(letters.size() - 2))) {
+			if(ends("i")){
 				removeX(1);
+				letters.add('y');
+			}
+			else if((cvc() && !doubleletter(letters.size()-3)) || ends("rs")){
+				letters.add('e');
+			}
+			else if (ends("" + letters.get(letters.size() - 2))) {
+				removeX(1);
+			}
+			if(ends("ooy")){
+				removeX(3);
+				letters.add('o');
+				letters.add('o');
+				letters.add('e');
+				letters.add('y');
 			}
 		}
 		if (ends("est")) {
 			suffs.add("est");
 			removeX(3);
-			if (ends("" + letters.get(letters.size() - 2))) {
+			if(ends("i")){
 				removeX(1);
+				letters.add('y');
+			}
+			else if((cvc() && !doubleletter(letters.size()-3)) || ends("rs")){
+				letters.add('e');
+			}
+			else if (ends("" + letters.get(letters.size() - 2))) {
+				removeX(1);
+			}
+			if(ends("ooy")){
+				removeX(3);
+				letters.add('o');
+				letters.add('o');
+				letters.add('e');
+				letters.add('y');
 			}
 		}
 		checkSuff("ful");
@@ -473,7 +502,7 @@ public class MorphologyFinder {
 		checkPref("alter");
 		checkPref("ante");
 		checkPref("anti");
-		if(begins("an")){
+		if(begins("an") && !begins("anc")){
 			prefs.add("an");
 			removeF(2);
 		}
@@ -554,7 +583,7 @@ public class MorphologyFinder {
 		checkPref("pseudo");
 		checkPref("quadri");
 		checkPref("quasi");
-		if(begins("re") && letters.get(letters.size()-1) != 'e')
+		if(begins("re") && letters.get(letters.size()-1) != 'e' && (letters.get(2) != 'c' && letters.get(3)!='k'))
 		{
 			prefs.add("re");
 			removeF(1);
