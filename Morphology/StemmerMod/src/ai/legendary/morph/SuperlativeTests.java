@@ -11,9 +11,11 @@ public class SuperlativeTests {
 		try {
 			Scanner s = new Scanner(f);
 			s.useDelimiter(",");
+			int count = 0;
 			while(s.hasNext()){
 				String p = s.next();
 				//System.out.println(p);
+				
 				if(!p.equals("ADJ") && !p.equals("SPRL") && !p.equals("COMPV") && !p.equals("\n") && !p.equals(""))
 				{
 					String c = s.next();
@@ -36,9 +38,12 @@ public class SuperlativeTests {
 					if(!c.equals(d)){
 						System.out.println(p +" = "+c);
 						System.out.println("but was: " + d);
+						count++;
 					}
 				}
+				
 			}
+			System.out.println("Incorrect Words: "+count);
 			s.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
