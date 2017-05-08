@@ -1,6 +1,10 @@
 package ai.legendary.morph;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Scanner;
 
 public class MorphologyFinder {
 	/**
@@ -19,7 +23,10 @@ public class MorphologyFinder {
 	 * ArrayList of prefixes
 	 */
 	protected ArrayList<String> prefs = new ArrayList<String>();
-
+	/**
+	 * an english dictionary
+	 */
+	Hashtable<String,String> english = new Hashtable<String,String>();
 	/**
 	 * Puts all letter of the word into the letters arraylist
 	 * 
@@ -33,6 +40,23 @@ public class MorphologyFinder {
 		for (int i = 0; i < w.length(); i++) {
 			letters.add(w.charAt(i));
 		}
+		loadDictionary();
+	}
+	/**
+	 * load dictionary from a file
+	 */
+	private void loadDictionary() {
+		File f = new File("english0.txt");
+		try {
+			Scanner s = new Scanner(f);
+			while(s.hasNext()){
+				english.put(s.next(), "");
+			}
+			s.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -197,7 +221,7 @@ public class MorphologyFinder {
 	private final boolean cvc() {
 		if(letters.size()>2)
 			return cons(letters.size() - 1) && !cons(letters.size() - 2)
-				&& cons(letters.size() - 3);
+				&& (cons(letters.size() - 3) || letters.get(letters.size()-3) == 'y');
 		else return false;
 	}
 	
@@ -221,7 +245,9 @@ public class MorphologyFinder {
 		if (ends(s)) {
 			suffs.add(s);
 			removeX(s.length());
+			
 		}
+		
 	}
 	/**
 	 * check if the prefix is there
@@ -229,8 +255,18 @@ public class MorphologyFinder {
 	 */
 	private void checkPref(String s){
 		if(begins(s) && letters.size()>s.length()+2){
-			prefs.add(s);
 			removeF(s.length());
+			String p = "";
+			for(int i=0;i<letters.size();i++){
+				p += letters.get(i);
+			}
+			if(!english.containsKey(p)){
+				for(int i = s.length()-1;i>=0;i--){
+					letters.add(0,s.charAt(i));
+				}
+			}
+			else
+				prefs.add(s);
 		}
 	}
 	/**
@@ -412,13 +448,25 @@ public class MorphologyFinder {
 			}
 			else if((cvc() && !doubleletter(letters.size()-3)) && !ends("ched")){
 				letters.add('e');
+				String s = "";
+				for(int i=0;i<letters.size();i++){
+					s += letters.get(i);
+				}
+				if(!english.containsKey(s)){
+					removeX(1);
+				}
 			}
 			else if (ends("" + letters.get(letters.size() - 2))&& !ends("ss") && (!ends("ll") || ends("full")) && !ends("dd")) {
 				removeX(1);
 			}
-			if(ends("bl") || ends("rs") || ends("u")|| ends("mpl") || ends("btl") || ends("uav")){
+			if(ends("bl") || ends("rs") || ends("u")|| ends("mpl") || ends("btl") || ends("uav") || ends("bl")){
                 letters.add('e');
             }
+			if(ends("uy")){
+				removeX(1);
+				letters.add('e');
+				letters.add('y');
+			}
 			if(ends("ooy")){
 				removeX(3);
 				letters.add('o');
@@ -427,7 +475,7 @@ public class MorphologyFinder {
 				letters.add('y');
 			}
 		}
-		if (ends("est")) {
+		else if (ends("est")) {
 			suffs.add("est");
 			removeX(3);
 			if(ends("i")){
@@ -436,13 +484,25 @@ public class MorphologyFinder {
 			}
 			else if((cvc() && !doubleletter(letters.size()-3)) && !ends("ched")){
 				letters.add('e');
+				String s = "";
+				for(int i=0;i<letters.size();i++){
+					s += letters.get(i);
+				}
+				if(!english.containsKey(s)){
+					removeX(1);
+				}
 			}
 			else if (ends("" + letters.get(letters.size() - 2)) && !ends("ss") && (!ends("ll") || ends("full"))&& !ends("dd")) {
 				removeX(1);
 			}
-			if(ends("bl") || ends("rs") || ends("u") || ends("mpl") || ends("btl")|| ends("uav")){
+			if(ends("bl") || ends("rs") || ends("u") || ends("mpl") || ends("btl")|| ends("uav") || ends("bl")){
                 letters.add('e');
             }
+			if(ends("uy")){
+				removeX(1);
+				letters.add('e');
+				letters.add('y');
+			}
 			if(ends("ooy")){
 				removeX(3);
 				letters.add('o');
@@ -451,7 +511,13 @@ public class MorphologyFinder {
 				letters.add('y');
 			}
 		}
-		checkSuff("ful");
+		if (ends("ful")) {
+			suffs.add("ful");
+			removeX(3);
+			if(ends("l")){
+				letters.add('l');
+			}
+		}
 		checkSuff("itis");
 		checkSuff("less");
 		checkSuff("like");
@@ -471,14 +537,24 @@ public class MorphologyFinder {
 		}
 		checkSuff("ism");
 		if (ends("ar") && !ends("ear") && !ends("aar") && !ends("oar") && !ends("uar")) {
-			suffs.add("ar");
+			
 			removeX(2);
-			if (letters.get(letters.size() - 2) == letters
+			if (letters.size()>2 && letters.get(letters.size() - 2) == letters
 					.get(letters.size() - 1)) {
 				removeX(1);
 			} else if (ends("i")) {
 				letters.add('e');
 			}
+			String s = "";
+			for(int i=0;i<letters.size();i++){
+				s += letters.get(i);
+			}
+			if(!english.containsKey(s)){
+				letters.add('a');
+				letters.add('r');
+			}
+			else
+				suffs.add("ar");
 		}
 		if(ends("ic")){
 			suffs.add("ic");
@@ -496,48 +572,22 @@ public class MorphologyFinder {
 		if(begins("dis") && letters.size()>4){
 			checkPref("dis");
 		}
-		if(begins("di") && letters.size()>4){
-			prefs.add("di");
-			removeF(2);
-		}
+		checkPref("di");
 		checkPref("trans");
-		/*if(begins("a") ){
-			prefs.add("a");
-			removeF(1);
-		}*/
-		if(begins("acro")){
-			prefs.add("acro");
-			removeF(4);
-		}
+		checkPref("a");
+		checkPref("acro");
 		checkPref("allo");
 		checkPref("alter");
 		checkPref("ante");
 		checkPref("anti");
-		/*if(begins("an") && !begins("anc")){
-			prefs.add("an");
-			removeF(2);
-		}*/
+		checkPref("an");
 		checkPref("auto");
-		if(begins("bi") && letters.size()>4){
-			prefs.add("bi");
-			removeF(2);
-		}
+		checkPref("bi");
 		checkPref("contra");
 		checkPref("counter");
-		
-		if(begins("co") && letters.size()>4 && !begins("com")){
-			prefs.add("co");
-			removeF(2);
-		}
-		
-		if(begins("de") && !ends("e") && letters.size()>5){
-			prefs.add("de");
-			removeF(2);
-		}
-		if(begins("down") && !ends("down")){
-			prefs.add("down");
-			removeF(4);
-		}
+		checkPref("co");
+		checkPref("de");
+		checkPref("down");
 		checkPref("dys");
 		checkPref("epi");
 		if(begins("extra") && !ends("extra")){
@@ -563,21 +613,11 @@ public class MorphologyFinder {
 		checkPref("maxi");
 		checkPref("meso");
 		checkPref("micro");
-		if(begins("mid") && !ends("dle"))
-		{
-			prefs.add("mid");
-			removeF(3);
-		}
-		if(begins("mini") && !ends("ature")){
-			prefs.add("mini");
-			removeF(4);
-		}
+		checkPref("mid");
+		checkPref("mini");
 		checkPref("mis");
 		checkPref("mono");
-		if(begins("multi") && !ends("ple")){
-			prefs.add("multi");
-			removeF(5);
-		}
+		checkPref("multi");
 		checkPref("non");
 		checkPref("octo");
 		checkPref("over");
@@ -594,11 +634,7 @@ public class MorphologyFinder {
 		checkPref("pseudo");
 		checkPref("quadri");
 		checkPref("quasi");
-		/*if(begins("re") && letters.get(letters.size()-1) != 'e' && (letters.get(2) != 'c' && letters.get(3)!='k'))
-		{
-			prefs.add("re");
-			removeF(2);
-		}*/
+		checkPref("re");
 		checkPref("self");
 		checkPref("semi");
 		checkPref("sub");
