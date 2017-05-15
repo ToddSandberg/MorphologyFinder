@@ -12,4 +12,4 @@ Take's the MorphInput.txt file and runs MorphologyFinder on it, then outputs it 
 
 ### Superlative Tests
 
-Compares "UniMorph-English_ADJ_Only.csv" which is a large list of comperative and superlative adjectives and their morphology with MorphologyFinder's output. It outputs all errors to UnimorphMisses.txt.
+Compares "UniMorph-English_ADJ_Only.csv", which is a large list of comperative and superlative adjectives and their morphology, with MorphologyFinder's output. It outputs all errors to UnimorphMisses.txt.
