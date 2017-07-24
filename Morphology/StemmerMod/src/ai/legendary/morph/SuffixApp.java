@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class SuffixApp {
 
 	public static void main(String[] args) {
-		File file = new File("MorphInput.txt");
+		File file = new File("Morphology/MorphInput.txt");
 		Scanner scan;
 		try {
 			scan = new Scanner(file);
